@@ -8,7 +8,6 @@
 #### Rationale:
 1. **Information Density**: The application has 6 distinct functional areas - displaying all on one screen would be overwhelming.
 2. **User Workflow**: Traders need to quickly scan previous shift information and add new entries. A tabbed interface allows focused data entry and review.
-3. **Role-Based Access**: Easier to control edit/view permissions per section.
 
 ### User Interface Structure
 
@@ -34,7 +33,7 @@
 - Provide visual confirmation when data is saved
 - Use date/time pickers for consistency
 
-#### For Data Display (Both Roles):
+#### For Data Display:
 - Use tables with sorting and filtering capabilities
 - Color-code status indicators (green/yellow/red for plant status)
 - Show timestamps for all entries
@@ -42,10 +41,10 @@
 
 #### General UI Guidelines:
 - **Sidebar Navigation**: Persistent left sidebar with tab navigation
-- **Top Bar**: User role indicator, current shift time, logout
+- **Top Bar**: Current shift time display
 - **Responsive Design**: Use Streamlit's column layout for tablet compatibility
 - **Visual Hierarchy**: Most critical information at the top
-- **Action Buttons**: Clearly distinguish between "Add New", "Edit", "Delete" (role-dependent)
+- **Action Buttons**: Clearly distinguish between "Add New", "Edit", "Delete"
 
 ### Component Specifications
 
@@ -59,7 +58,6 @@
 - Fixed left sidebar (250px width)
 - Logo/app name at top
 - Radio buttons or tabs for navigation
-- User info and logout at bottom
 
 #### Data Entry Forms:
 - Consistent field widths
@@ -79,17 +77,6 @@
 
 ### Proposed Schema:
 
-#### Users Table:
-```sql
-CREATE TABLE users (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    username TEXT UNIQUE NOT NULL,
-    password_hash TEXT NOT NULL,
-    role TEXT NOT NULL CHECK(role IN ('trader', 'viewer')),
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-);
-```
-
 #### Handover Logs Table:
 ```sql
 CREATE TABLE handover_logs (
@@ -97,10 +84,8 @@ CREATE TABLE handover_logs (
     trader_name TEXT NOT NULL,
     shift_date DATE NOT NULL,
     notes TEXT,
-    created_by INTEGER,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (created_by) REFERENCES users(id)
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 ```
 
@@ -111,10 +96,8 @@ CREATE TABLE power_positions (
     shift_date DATE NOT NULL,
     position_details TEXT NOT NULL,
     portfolio_status TEXT,
-    created_by INTEGER,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (created_by) REFERENCES users(id)
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 ```
 
@@ -125,10 +108,8 @@ CREATE TABLE gas_positions (
     shift_date DATE NOT NULL,
     position_details TEXT NOT NULL,
     portfolio_status TEXT,
-    created_by INTEGER,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (created_by) REFERENCES users(id)
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 ```
 
@@ -140,10 +121,8 @@ CREATE TABLE plant_status (
     status TEXT NOT NULL CHECK(status IN ('operational', 'partial', 'offline')),
     notes TEXT,
     shift_date DATE NOT NULL,
-    created_by INTEGER,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (created_by) REFERENCES users(id)
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 ```
 
@@ -155,10 +134,8 @@ CREATE TABLE power_system_status (
     status TEXT NOT NULL,
     notes TEXT,
     shift_date DATE NOT NULL,
-    created_by INTEGER,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (created_by) REFERENCES users(id)
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 ```
 
@@ -171,10 +148,8 @@ CREATE TABLE notifications (
     priority TEXT CHECK(priority IN ('low', 'medium', 'high', 'critical')),
     is_resolved BOOLEAN DEFAULT 0,
     shift_date DATE NOT NULL,
-    created_by INTEGER,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (created_by) REFERENCES users(id)
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 ```
 
@@ -186,10 +161,8 @@ CREATE TABLE it_issues (
     description TEXT NOT NULL,
     status TEXT CHECK(status IN ('open', 'in_progress', 'resolved')),
     shift_date DATE NOT NULL,
-    created_by INTEGER,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (created_by) REFERENCES users(id)
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 ```
 
@@ -200,10 +173,8 @@ CREATE TABLE competitor_activity (
     competitor_name TEXT NOT NULL,
     activity_details TEXT NOT NULL,
     shift_date DATE NOT NULL,
-    created_by INTEGER,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (created_by) REFERENCES users(id)
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 ```
 
@@ -213,10 +184,8 @@ CREATE TABLE comments (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     comment_text TEXT NOT NULL,
     shift_date DATE NOT NULL,
-    created_by INTEGER,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (created_by) REFERENCES users(id)
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 ```
 
@@ -230,9 +199,6 @@ copilot_proj/
 │   ├── __init__.py
 │   ├── db_manager.py      # Database connection and queries
 │   └── schema.sql         # Database schema
-├── auth/
-│   ├── __init__.py
-│   └── authentication.py  # Login/logout, password hashing
 ├── pages/
 │   ├── dashboard.py       # Main dashboard
 │   ├── handover_log.py    # Handover log tab
@@ -251,19 +217,8 @@ copilot_proj/
 ### Dependencies:
 ```
 streamlit
-sqlite3 (built-in)
-bcrypt or argon2-cffi
 pandas
-datetime
 ```
-
-## Security Considerations
-
-1. **Password Storage**: Use bcrypt or argon2 for hashing passwords
-2. **Session Management**: Use Streamlit's session state for user sessions
-3. **SQL Injection Prevention**: Use parameterized queries
-4. **Input Validation**: Validate all user inputs before database operations
-5. **Role-Based Access Control**: Check user role before allowing edit/delete operations
 
 ## Design Notes
 

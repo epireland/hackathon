@@ -4,23 +4,12 @@
 - **Project Name**: Power & Gas Trader Shift Handover
 - **Description**: Web application for Power and Gas traders to create shift handover log
 
-## User Roles
-- **Traders (Read/Write)**: Can create, edit, delete, and view shift handover information.
-- **Viewers (Read-Only)**: Can only view shift handover information without modification rights.
-
 ## Requirements
 - **Functional Requirements:**
-    **User Authentication & Authorization:**
-  - Support two user roles: Traders (read/write access) and Viewers (read-only access).
-  - Store user credentials (usernames and hashed passwords) in SQLite database.
-  - Implement secure password hashing (e.g., bcrypt or argon2).
-  - Provide login/logout functionality.
-  - Traders can create, edit, and delete shift handover information.
-  - Viewers can only view shift handover information.
   **Core Handover Management:**
   - Allow traders to log shift handover details including trader name, shift date, and notes.
-  - Provide a view to list all handover logs accessible to both user types.
-  - Enable editing and deleting of existing handover logs (traders only).
+  - Provide a view to list all handover logs.
+  - Enable editing and deleting of existing handover logs.
   
   **Trading Positions & Market Activity:**
   - **Power Position**: Display current power trading positions and portfolio status.
