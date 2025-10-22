@@ -46,7 +46,12 @@
   - A minimum viable product (MVP) web application for shift handover management.
 
 ## Resources
-- **Tools & Technologies:** Python, Streamlit, SQLite
+- **Tools & Technologies:** Python, Streamlit, SQLite, uv (package manager)
+
+## Package Management
+- **Package Manager:** Use `uv` for dependency management instead of pip
+- **Configuration:** Dependencies defined in `pyproject.toml`
+- **Benefits:** Faster dependency resolution and installation, better dependency locking
 
 ## Risks & Mitigation
 - **Potential Risks:**
