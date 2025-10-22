@@ -60,7 +60,6 @@
 | **Application Type** | **Recommended Approach** | **Why** |
 |---------------------|--------------------------|---------|
 | Python Web Apps | **Docker Container** | Full control, consistent runtime |
-| Static Sites | Static Web App | Cost-effective, simple |
 
 ### ✅ For Production Development
 
@@ -125,9 +124,6 @@
 **Key Insight:** Match your process rigor to your time constraints. Hackathons reward speed and iteration; production rewards stability and maintainability.
 
 ---
-
-
-
 ---
 
 ## Lessons Applied to This Project
