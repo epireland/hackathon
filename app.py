@@ -1,8 +1,8 @@
 """Main Streamlit application for Power & Gas Trader Shift Handover."""
 import streamlit as st
 from datetime import datetime
-from database.db_manager import DatabaseManager
-from pages import (
+from src.backend.database.db_manager import DatabaseManager
+from src.frontend.pages import (
     dashboard,
     handover_log,
     positions,
@@ -11,7 +11,7 @@ from pages import (
     market,
     comments
 )
-from utils.helpers import get_current_shift_time
+from src.utils.helpers import get_current_shift_time
 
 
 # Page configuration
