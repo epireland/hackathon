@@ -53,7 +53,6 @@
 
 #### 4. **Constrain AI Agent Scope**
 - Provide explicit "do not modify" lists (databases, configs, etc.)
-- Use file-level permissions where possible
 - Implement schema validation/linting in CI
 - Regular checkpoint reviews of agent changes
 
@@ -62,8 +61,6 @@
 |---------------------|--------------------------|---------|
 | Python Web Apps | **Docker Container** | Full control, consistent runtime |
 | Static Sites | Static Web App | Cost-effective, simple |
-| Serverless APIs | Azure Functions | Event-driven, auto-scale |
-| Complex Microservices | **Kubernetes/AKS** | Orchestration, scalability |
 
 ---
 
@@ -86,11 +83,6 @@
 - Performance benchmarks
 - Security scanning
 
-#### 4. **Documentation Requirements**
-- API documentation (OpenAPI/Swagger)
-- Architecture decision records (ADRs)
-- Deployment runbooks
-- User guides
 
 ---
 
@@ -147,35 +139,7 @@
 
 ---
 
-## Additional Recommendations
 
-### Alternative Approaches to Consider
-
-#### **Agile Spike Methodology**
-- Dedicate first 2 hours to exploratory coding
-- Identify technical risks through hands-on experimentation
-- Make architectural decisions based on real findings, not assumptions
-
-#### **Version Control Strategies**
-- Create feature branches for experimental work
-- Use Git tags to mark stable checkpoints
-- Enable quick rollback when agents go off-track
-
-#### **Monitoring & Guardrails**
-- Set up file watchers to alert on unexpected changes
-- Use pre-commit hooks to validate schema changes
-- Implement automated tests that run on every save
-
-#### **Team Communication Patterns**
-- **Stand-ups every 2 hours** during hackathons
-- **Show, don't tell:** Demo working code frequently
-- **Decision log:** Quick notes on why you chose approach X over Y
-
-#### **Technology Selection Criteria for Hackathons**
-1. **Familiarity:** Can team use it without learning curve?
-2. **Setup Speed:** Running in < 15 minutes?
-3. **Debugging:** Easy to troubleshoot when things break?
-4. **Deployment:** One-command deploy available?
 
 ---
 
