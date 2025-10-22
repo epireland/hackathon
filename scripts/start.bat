@@ -24,6 +24,5 @@ echo The application will open in your default browser.
 echo Press Ctrl+C to stop the server.
 echo.
 
-REM Activate venv and run
-call .venv\Scripts\activate.bat
-streamlit run app.py
+REM Run with full path to Python executable
+C:\SB\D_DRIVE\SB_MICROHACK\hackathon\.venv\Scripts\python.exe -m streamlit run app.py
