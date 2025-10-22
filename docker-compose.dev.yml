@@ -1,0 +1,25 @@
+version: '3.8'
+
+services:
+  shift-handover:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: shift-handover-app-dev
+    ports:
+      - "8501:8501"
+    volumes:
+      # Persist database
+      - shift-handover-data:/app/data
+      # Mount source code for hot-reload development
+      - ./src:/app/src
+      - ./app.py:/app/app.py
+    environment:
+      - DB_PATH=/app/data/shift_handover.db
+      - STREAMLIT_SERVER_FILE_WATCHER_TYPE=auto
+    restart: unless-stopped
+    command: ["streamlit", "run", "app.py", "--server.port=8501", "--server.address=0.0.0.0"]
+
+volumes:
+  shift-handover-data:
+    driver: local

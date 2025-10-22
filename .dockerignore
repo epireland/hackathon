@@ -1,0 +1,81 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+*.egg-info/
+dist/
+build/
+*.egg
+.pytest_cache/
+.coverage
+htmlcov/
+*.cover
+
+# Virtual environments
+venv/
+env/
+ENV/
+.venv
+
+# Environment files (include .env.example manually if needed)
+.env
+.env.local
+.env.*.local
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Git
+.git/
+.gitignore
+
+# Documentation
+docs/
+*.md
+!README.md
+
+# Test files
+tests/
+pages_test/
+*_test.py
+test_*.py
+
+# Database (will be in volume)
+*.db
+*.db-journal
+*.db-shm
+*.db-wal
+
+# Build artifacts
+dist/
+*.zip
+
+# Scripts
+scripts/
+start.bat
+verify_setup.py
+
+# Old directories
+database/
+pages_test/
+utils/
+
+# Config files
+UV_*.md
+CMD_*.md
+*_STATUS.md
+*_SUMMARY.md
+REORGANIZATION_SUMMARY.md
+
+# Infrastructure
+infra/

@@ -1,5 +1,6 @@
 """Main Streamlit application for Power & Gas Trader Shift Handover."""
 import streamlit as st
+import os
 from datetime import datetime
 from src.backend.database.db_manager import DatabaseManager
 from src.frontend.pages import (
@@ -26,7 +27,8 @@ st.set_page_config(
 @st.cache_resource
 def init_db():
     """Initialize database connection."""
-    return DatabaseManager()
+    db_path = os.getenv('DB_PATH', 'shift_handover.db')
+    return DatabaseManager(db_path=db_path)
 
 db = init_db()
 

@@ -58,7 +58,91 @@ This application enables traders to efficiently log, track, and review shift han
 
 ## 🎮 Usage
 
-### Running the Application
+### Option 1: Running with Docker (Recommended for Production) 🐳
+
+#### Quick Start
+```cmd
+docker-compose up -d
+```
+
+Then access the application at `http://localhost:8501`
+
+#### Using Build Script
+Windows:
+```cmd
+docker-build.bat
+```
+
+Linux/Mac:
+```bash
+chmod +x docker-build.sh
+./docker-build.sh
+```
+
+#### Manual Docker Commands
+```cmd
+# Build the image
+docker build -t shift-handover:latest .
+
+# Run the container
+docker run -d -p 8501:8501 -v shift-handover-data:/app/data --name shift-handover shift-handover:latest
+```
+
+#### Docker Management
+```cmd
+# View logs
+docker-compose logs -f
+
+# Stop the application
+docker-compose down
+
+# Restart the application
+docker-compose restart
+```
+
+**See [DOCKER.md](DOCKER.md) for comprehensive Docker deployment guide including backup, restore, and production deployment.**
+
+### Option 2: Deploy to Azure ☁️
+
+#### Quick Azure Deployment
+
+**Using automated scripts:**
+
+Windows:
+```cmd
+azure-acr-build.bat
+```
+
+Linux/Mac:
+```bash
+chmod +x azure-acr-build.sh
+./azure-acr-build.sh
+```
+
+**Using Azure CLI (Remote Build):**
+```bash
+# Set variables
+ACR_NAME="your-acr-name"
+
+# Build in Azure (no Docker required!)
+az acr build \
+  --registry $ACR_NAME \
+  --image shift-handover:latest \
+  --file Dockerfile \
+  .
+
+# Deploy to Azure Container Instances
+az container create \
+  --resource-group rg-shift-handover \
+  --name shift-handover-aci \
+  --image ${ACR_NAME}.azurecr.io/shift-handover:latest \
+  --dns-name-label shift-handover-app \
+  --ports 8501
+```
+
+**See [AZURE_DEPLOYMENT.md](AZURE_DEPLOYMENT.md) for complete Azure deployment guide and [AZURE_CLI_REFERENCE.md](AZURE_CLI_REFERENCE.md) for quick command reference.**
+
+### Option 3: Running Locally (Development)
 
 1. **Start the Streamlit application**
    ```cmd
